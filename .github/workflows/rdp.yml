@@ -17,5 +17,9 @@ jobs:
       - name: Start Pinggy Tunnel
         shell: powershell
         run: |
-          $cmd = 'ssh -T -p 443 -o StrictHostKeyChecking=no -o ConnectTimeout=30 -o PreferredAuthentications=none -o PubkeyAuthentication=no -R 0:127.0.0.1:3389 tcp@free.pinggy.io'
-          cmd /c $cmd
+          ssh -T -p 443 `
+            -o StrictHostKeyChecking=no `
+            -o ServerAliveInterval=30 `
+            -o ServerAliveCountMax=3 `
+            -R 0:localhost:3389 `
+            "${{ secrets.PINGGY_TOKEN }}+tcp@pro.pinggy.io"
