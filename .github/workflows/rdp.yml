@@ -8,9 +8,9 @@ jobs:
     steps:
       - name: Download Ngrok
         run: |
-          Invoke-WebRequest -Uri https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+          Invoke-WebRequest -Uri "https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-windows-amd64.zip" -OutFile ngrok.zip
           Expand-Archive ngrok.zip
       - name: Authenticate Ngrok
-        run: .\ngrok\ngrok.exe authtoken 3JV8kzZAtFiksRjzY26PwrBv3Ro_uRB4xasoXoUAJieGu52J
+        run: .\ngrok\ngrok.exe config add-authtoken 3JV8kzZAtFiksRjzY26PwrBv3Ro_uRB4xasoXoUAJieGu52J
       - name: Start Tunnel
         run: .\ngrok\ngrok.exe tcp 3389
