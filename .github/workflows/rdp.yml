@@ -22,5 +22,6 @@ jobs:
             -o PreferredAuthentications=password `
             -o PubkeyAuthentication=no `
             -o ServerAliveInterval=30 `
+            -o ServerAliveCountMax=3 `
             -R 0:127.0.0.1:3389 `
             tcp@free.pinggy.io
