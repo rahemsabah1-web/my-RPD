@@ -8,8 +8,8 @@ jobs:
     steps:
       - name: Enable RDP
         run: |
-          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
+          Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet` Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
       - name: Start Tunnel
         run: |
-          ssh -o StrictHostKeyChecking=no -p 443 -R 0:localhost:3389 a.pinggy.io
+          ssh -tt -o StrictHostKeyChecking=no -p 443 -R 0:localhost:3389 a.pinggy.io
