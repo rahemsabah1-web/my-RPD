@@ -14,14 +14,12 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 
+      - name: Install Pinggy CLI
+        shell: powershell
+        run: |
+          npm install -g pinggy
+
       - name: Start Pinggy TCP Tunnel
         shell: powershell
         run: |
-          "0000" | ssh -p 443 `
-            -o StrictHostKeyChecking=no `
-            -o PreferredAuthentications=password `
-            -o PubkeyAuthentication=no `
-            -o ServerAliveInterval=30 `
-            -o ServerAliveCountMax=3 `
-            -R 0:127.0.0.1:3389 `
-            tcp@free.pinggy.io
+          pinggy --token "${{ secrets.PINGGY_TOKEN }}" --type tcp -l 3389
