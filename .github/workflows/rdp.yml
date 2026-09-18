@@ -21,6 +21,5 @@ jobs:
             -o StrictHostKeyChecking=no `
             -o ServerAliveInterval=30 `
             -o ServerAliveCountMax=3 `
-            -o ExitOnForwardFailure=yes `
             -R 0:localhost:3389 `
             "${{ secrets.PINGGY_TOKEN }}+tcp@pro.pinggy.io"
