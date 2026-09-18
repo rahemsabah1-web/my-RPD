@@ -14,6 +14,21 @@ jobs:
           Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server' -Name "fDenyTSConnections" -Value 0
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
 
+      - name: Create RDP User
+        shell: powershell
+        env:
+          RDP_PASSWORD: ${{ secrets.RDP_PASSWORD }}
+        run: |
+          $Password = ConvertTo-SecureString $env:RDP_PASSWORD -AsPlainText -Force
+
+          if (Get-LocalUser -Name "rdpuser" -ErrorAction SilentlyContinue) {
+              Set-LocalUser -Name "rdpuser" -Password $Password
+          } else {
+              New-LocalUser -Name "rdpuser" -Password $Password -PasswordNeverExpires -UserMayNotChangePassword
+          }
+
+          Add-LocalGroupMember -Group "Remote Desktop Users" -Member "rdpuser" -ErrorAction SilentlyContinue
+
       - name: Install Pinggy CLI
         shell: powershell
         run: |
