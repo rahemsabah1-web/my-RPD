@@ -1,0 +1,16 @@
+name: RDP
+
+on: workflow_dispatch
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Download Ngrok
+        run: |
+          Invoke-WebRequest -Uri https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
+          Expand-Archive ngrok.zip
+      - name: Authenticate Ngrok
+        run: .\ngrok\ngrok.exe authtoken 3JV8kzZAtFiksRjzY26PwrBv3Ro_uRB4xasoXoUAJieGu52J
+      - name: Start Tunnel
+        run: .\ngrok\ngrok.exe tcp 3389
