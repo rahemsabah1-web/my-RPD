@@ -12,4 +12,4 @@ jobs:
           Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
       - name: Start Tunnel
         run: |
-          ssh -tt -o StrictHostKeyChecking=no -p 443 -R 0:localhost:3389 a.pinggy.io
+          ssh -tt -o StrictHostKeyChecking=no -p 443 -R 0:localhost:3389 tcp@a.pinggy.io
