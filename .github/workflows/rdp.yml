@@ -29,6 +29,14 @@ jobs:
 
           Add-LocalGroupMember -Group "Remote Desktop Users" -Member "rdpuser" -ErrorAction SilentlyContinue
 
+      - name: Set runneradmin password
+        shell: powershell
+        env:
+          ADMIN_PASSWORD: ${{ secrets.RUNNER_ADMIN_PASSWORD }}
+        run: |
+          $Password = ConvertTo-SecureString $env:ADMIN_PASSWORD -AsPlainText -Force
+          Set-LocalUser -Name "runneradmin" -Password $Password
+
       - name: Install Pinggy CLI
         shell: powershell
         run: |
