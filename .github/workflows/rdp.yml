@@ -45,4 +45,4 @@ jobs:
       - name: Start Pinggy TCP Tunnel
         shell: powershell
         run: |
-          pinggy --token "${{ secrets.PINGGY_TOKEN }}" tcp 3389
+          pinggy --token "${{ secrets.PINGGY_TOKEN }}" --type tcp -l 3389
