@@ -20,13 +20,11 @@ jobs:
           RDP_PASSWORD: ${{ secrets.RDP_PASSWORD }}
         run: |
           $Password = ConvertTo-SecureString $env:RDP_PASSWORD -AsPlainText -Force
-
           if (Get-LocalUser -Name "rdpuser" -ErrorAction SilentlyContinue) {
               Set-LocalUser -Name "rdpuser" -Password $Password
           } else {
               New-LocalUser -Name "rdpuser" -Password $Password -PasswordNeverExpires -UserMayNotChangePassword
           }
-
           Add-LocalGroupMember -Group "Remote Desktop Users" -Member "rdpuser" -ErrorAction SilentlyContinue
 
       - name: Set runneradmin password
